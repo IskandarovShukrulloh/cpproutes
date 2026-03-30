@@ -7,7 +7,7 @@
 
         <h1 class="mb-4">Welcome to CppRoutes</h1>
 
-        {{-- Список модулей --}}
+        {{-- List of modules --}}
         @if($modules->isEmpty())
             <p>No modules available at the moment.</p>
         @else
@@ -18,7 +18,7 @@
                         <small>
                             Author:
                             @if($module->author)
-                                <a href="{{ route('users.show', $module->author->id) }}">
+                                <a href="{{ route('profile.show', $module->author->id) }}">
                                     {{ $module->author->username }}
                                 </a>
                             @else

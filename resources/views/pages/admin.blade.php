@@ -10,6 +10,7 @@
 <header class="header">
     <div>Admin Panel</div>
     <div>
+        <a href="{{ route('home') }}">Home</a>
         <a href="{{ route('users.index') }}" target="_blank">Users</a>
         <a href="{{ route('modules.index') }}" target="_blank">Modules</a>
         <form action="{{ route('logout') }}" method="POST" style="display:inline;">

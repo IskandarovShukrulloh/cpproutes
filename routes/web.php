@@ -9,13 +9,11 @@ use App\Http\Controllers\HomeController;
 
 // Главная
 Route::get('/', [HomeController::class, 'homepage'])->name('home');
-Route::middleware(['auth', AdminMiddleware::class]);
-
 
 // User profile
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [UserController::class, 'profile'])->name('profile');
-    Route::post('/profile', [UserController::class, 'updateProfile'])->name('profile.update');
+    Route::put('/profile', [UserController::class, 'updateProfile'])->name('profile.update');
 });
 
 //  Гость (НЕ авторизован)
@@ -32,21 +30,12 @@ Route::post('/logout', [AuthController::class, 'logout'])
     ->middleware('auth')
     ->name('logout');
 
-
-////  Dashboard
-//Route::middleware(['auth'])->group(function () {
-//    Route::view('/dashboard', 'dashboard')->name('dashboard');
-//});
-
-
 // 🔒 ВСЯ админка под защитой
 Route::middleware(['auth', AdminMiddleware::class])->group(function () {
-
     Route::view('/admin-panel', 'pages.admin')->name('admin-panel');
 
     Route::resource('users', UserController::class);
     Route::resource('modules', ModuleController::class);
-
 });
 
 require __DIR__.'/settings.php';

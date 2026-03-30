@@ -15,7 +15,8 @@ class DatabaseSeeder extends Seeder
     {
         // Создаём администратора без фабрики
         User::create([
-            'name'     => 'admin',
+            'fullname' => 'Shukrulloh',
+            'username' => 'admin',
             'email'    => 'iskandarov.sh8228@gmail.com',
             'password' => Hash::make('123456789'),
             'role'     => 'admin',

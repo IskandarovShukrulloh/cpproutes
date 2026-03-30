@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Module extends Model
 {
     protected $table = 'modules';
-    protected $fillable = ['title', 'is_active'];
+    protected $fillable = ['title', 'is_active', 'author_id'];
 
     protected $casts = [
         'is_active' => 'boolean'

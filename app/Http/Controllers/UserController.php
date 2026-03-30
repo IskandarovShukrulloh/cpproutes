@@ -77,4 +77,34 @@ class UserController extends Controller
         $user->delete();
         return redirect()->route('users.index')->with('success', 'Пользователь удалён');
     }
+
+    public function profile()
+    {
+        $user = auth()->user();
+        return view('users.profile', compact('user'));
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $user = auth()->user();
+
+        $request->validate([
+            'fullname' => 'required|string|max:255',
+            'username' => 'required|string|max:255|unique:users,username,' . $user->id,
+            'email'    => 'required|email|max:255|unique:users,email,' . $user->id,
+            'password' => 'nullable|string|min:6|confirmed', // password_confirmation для формы
+        ]);
+
+        $user->fullname = $request->fullname;
+        $user->username = $request->username;
+        $user->email = $request->email;
+
+        if ($request->filled('password')) {
+            $user->password = $request->password; // хешируется через $casts в модели
+        }
+
+        $user->save();
+
+        return redirect()->route('profile')->with('success', 'Profile updated successfully!');
+    }
 }

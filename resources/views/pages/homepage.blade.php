@@ -1,30 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Homepage</title>
-    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
-</head>
-<body>
-<header class="header">
-    <div class="logo">MyApp</div>
-    <nav class="nav">
-        <ul>
-            <li><a href="{{ route('admin-panel') }}">Admin Panel</a></li>
-        </ul>
-    </nav>
-</header>
+@extends('layouts.app')
 
-<main class="main">
-    <h1>Welcome to MyApp</h1>
-    <p>This is your homepage. Manage your content from the navigation above.</p>
+@section('title', 'Homepage')
 
+@section('content')
+    <div class="container">
 
-</main>
+        <h1 class="mb-4">Welcome to CppRoutes</h1>
 
-<footer class="footer">
-    &copy; {{ date('Y') }} MyApp. All rights reserved.
-</footer>
-</body>
-</html>
+        {{-- Список модулей --}}
+        @if($modules->isEmpty())
+            <p>No modules available at the moment.</p>
+        @else
+            @foreach($modules as $module)
+                <div class="card mb-3">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <span>{{ $module->title }}</span>
+                        <small>
+                            Author:
+                            @if($module->author)
+                                <a href="{{ route('users.show', $module->author->id) }}">
+                                    {{ $module->author->username }}
+                                </a>
+                            @else
+                                —
+                            @endif
+                        </small>
+                    </div>
+                    <div class="card-body">
+                        <h6>Lessons:</h6>
+                        @if($module->lessons == null)
+                            <p class="text-muted">No lessons for this module yet.</p>
+                        @else
+                            <ul>
+                                @foreach($module->lessons as $lesson)
+                                    <li>{{ $lesson->title }}</li>
+                                @endforeach
+                            </ul>
+                        @endif
+                    </div>
+                </div>
+            @endforeach
+        @endif
+
+    </div>
+@endsection

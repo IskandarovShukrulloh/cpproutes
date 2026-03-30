@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\UserRole;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -10,7 +11,6 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-//    public mixed $role;
     protected $fillable = ['fullname', 'email', 'password', "role", 'username'];
 
     protected $hidden = ['password', 'remember_token'];
@@ -18,6 +18,7 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
+        'role' => UserRole::class
     ];
 
     // Связь с модулями

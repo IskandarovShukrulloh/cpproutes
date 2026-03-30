@@ -18,9 +18,7 @@ class ModuleController extends Controller
     {
         return view('modules.create');
     }
-
-
-    public function store(Request $request)
+        public function store(Request $request)
     {
         $data = $request->validate([
             'title' => 'required|string|max:255',
@@ -60,4 +58,5 @@ class ModuleController extends Controller
         $module->delete();
         return redirect()->route('modules.index')->with('success', 'Module deleted successfully!');
     }
+
 }

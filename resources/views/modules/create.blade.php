@@ -18,7 +18,7 @@
             @csrf
 
             <div class="form-group">
-                <label for="title">Module Title *</label>
+                <label for="title">Название</label>
                 <input
                     type="text"
                     name="title"
@@ -34,7 +34,7 @@
             </div>
 
             <div class="form-group">
-                <label for="description">Description</label>
+                <label for="description">Описание</label>
                 <textarea
                     name="description"
                     id="description"

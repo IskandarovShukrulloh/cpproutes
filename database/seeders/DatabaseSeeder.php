@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Module;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash; // для хэша пароля
@@ -35,5 +36,10 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('123456'),
             'role'     => 'user',
         ]);
+
+        Module::create([
+            'title' => 'Введение в с++',
+
+        ])
     }
 }

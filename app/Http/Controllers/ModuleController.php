@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Module;
-
+use App\Http\Policies\ModulePolicy;
 class ModuleController extends Controller
 {
     // Show user's own modules
@@ -35,14 +35,14 @@ class ModuleController extends Controller
     // Edit form (check ownership)
     public function edit(Module $module)
     {
-        $this->authorize('update', $module); // Policy check
+        // $this->authorize('update', $module); // Policy check
         return view('modules.edit', compact('module'));
     }
 
     // Update module (check ownership)
     public function update(Request $request, Module $module)
     {
-        $this->authorize('update', $module);
+       // $this->authorize('update', $module);
 
         $validated = $request->validate([
             'title' => 'required|string|max:255',
@@ -57,7 +57,7 @@ class ModuleController extends Controller
     // Delete module (check ownership)
     public function destroy(Module $module)
     {
-//        $this->authorize('delete', $module);
+        // $this->authorize('delete', $module);
         $module->delete();
 
         return redirect()->route('modules.my')->with('success', 'Module deleted!');

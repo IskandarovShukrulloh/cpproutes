@@ -24,7 +24,7 @@ class User extends Authenticatable
     // Связь с модулями
     public function modules()
     {
-        return $this->hasMany(Module::class);
+        return $this->hasMany(Module::class, 'user_id');
     }
 
     // Связь со всеми уроками через модули

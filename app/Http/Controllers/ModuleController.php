@@ -59,4 +59,11 @@ class ModuleController extends Controller
         return redirect()->route('modules.index')->with('success', 'Module deleted successfully!');
     }
 
+    public function myModules()
+    {
+        $modules = auth()->user()->modules()->with('lessons')->get();
+
+        return view('modules.my', compact('modules'));
+    }
+
 }

@@ -22,6 +22,9 @@
 
                     @auth
                         <li class="nav-item">
+                            <a class="nav-link" href="{{ route('modules.my') }}">My Modules</a>
+                        </li>
+                        <li class="nav-item">
                             <span class="nav-link">
                                 {{ auth()->user()->fullname }}
                                 (<a href="{{ route('profile') }}" class="text-decoration-none text-light">{{ auth()->user()->username }}</a>)

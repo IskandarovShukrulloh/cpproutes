@@ -10,8 +10,8 @@ use App\Http\Controllers\HomeController;
 // Public routes
 Route::get('/', [HomeController::class, 'homepage'])->name('home');
 Route::get('/profile/{user}', [UserController::class, 'showProfile'])->name('profile.show');
-
 // Guest only routes
+
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
     Route::post('/login', [AuthController::class, 'login']);
@@ -24,6 +24,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [UserController::class, 'profile'])->name('profile');
     Route::put('/profile', [UserController::class, 'updateProfile'])->name('profile.update');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::middleware('auth')->get('/my-modules', [ModuleController::class, 'myModules'])->name('modules.my');
 });
 
 // Admin routes

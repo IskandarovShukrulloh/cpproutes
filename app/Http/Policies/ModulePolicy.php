@@ -1,4 +1,12 @@
 <?php
+
+namespace App\Http\Policies;
+
+use Illuminate\Http\Request;
+use App\Models\Module;
+use App\Models\User;
+use App\Http\Controllers;
+
 class ModulePolicy
 {
     public function update(User $user, Module $module)

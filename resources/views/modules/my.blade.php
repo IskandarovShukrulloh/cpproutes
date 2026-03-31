@@ -3,16 +3,16 @@
 @section('content')
     <div class="my-modules">
         <div class="modules-header">
-            <h1>My Modules</h1>
+            <h1>Мои модули</h1>
             <a href="{{ route('modules.create') }}" class="btn btn-primary">
-                + Add Module
+                + Добавить Модуль
             </a>
         </div>
 
         @if($modules->isEmpty())
             <div class="empty-state">
-                <p>You haven't created any modules yet.</p>
-                <a href="{{ route('modules.create') }}" class="btn btn-primary">Create Your First Module</a>
+                <p>Вы еще не создавали модули</p>
+                <a href="{{ route('modules.create') }}" class="btn btn-primary">Создайте свой первый модуль с уроками</a>
             </div>
         @else
             <div class="modules-list">
@@ -21,11 +21,11 @@
                         <div class="module-header">
                             <h3>{{ $module->title }}</h3>
                             <div class="module-actions">
-                                <a href="{{ route('modules.edit', $module) }}" class="btn btn-sm btn-warning">Edit</a>
+                                <a href="{{ route('modules.edit', $module) }}" class="btn btn-sm btn-warning">Изменить</a>
                                 <form action="{{ route('modules.destroy', $module) }}" method="POST" style="display:inline;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Удалить</button>
                                 </form>
                             </div>
                         </div>

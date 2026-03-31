@@ -16,13 +16,13 @@
 
             <ul class="navbar-nav ms-auto">
                 @guest
-                    <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">Login</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('register') }}">Register</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">Войти</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('register') }}">Регистрация</a></li>
                 @endguest
 
                     @auth
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('modules.my') }}">My Modules</a>
+                            <a class="nav-link" href="{{ route('modules.my') }}">Мои Модули</a>
                         </li>
                         <li class="nav-item">
                             <span class="nav-link">
@@ -31,12 +31,12 @@
                             </span>
                         </li>
                         @if(auth()->user()->role === \App\Enums\UserRole::ADMIN)
-                            <li class="nav-item"><a class="nav-link" href="{{ route('admin-panel') }}">Admin Panel</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{{ route('admin-panel') }}">Админ Панель</a></li>
                         @endif
                         <li class="nav-item">
                             <form action="{{ route('logout') }}" method="POST">
                                 @csrf
-                                <button class="btn btn-link nav-link" type="submit">Logout</button>
+                                <button class="btn btn-link nav-link" type="submit">Выйти</button>
                             </form>
                         </li>
                     @endauth

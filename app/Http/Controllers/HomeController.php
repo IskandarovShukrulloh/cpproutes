@@ -7,7 +7,7 @@ use App\Models\Module;
 class HomeController extends Controller
 {
     public function homepage() {
-        $modules = Module::with('lesson')->get();
+        $modules = Module::with('lessons')->get();
         return view('pages.homepage', compact('modules'));
     }
 }

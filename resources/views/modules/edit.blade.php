@@ -2,12 +2,23 @@
 @section('title', 'Edit Module')
 @section('content')
     <h1>Edit Module</h1>
-    <form action="{{ route('modules.update', $module) }}" method="POST">@csrf @method('PUT')
-        <div class="mb-3"><label>Title</label><input type="text" name="title" class="form-control" value="{{ $module->title }}" required></div>
-        <div class="mb-3"><label>Active</label>
-            <input type="checkbox" name="is_active" value="1" {{ $module->is_active ? 'checked' : '' }}>
+    <form action="{{ route('modules.update', $module) }}" method="POST">
+        @csrf
+        @method('PUT')
+
+        <div class="form-group">
+            <label for="title">Module Title</label>
+            <input type="text" name="title" id="title" class="form-control" value="{{ $module->title }}" required>
+            @error('title') <span class="text-danger">{{ $message }}</span> @enderror
         </div>
-        <button type="submit" class="btn btn-success">Update</button>
-        <a href="{{ route('modules.index') }}" class="btn btn-secondary">Cancel</a>
+
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea name="description" id="description" class="form-control">{{ $module->description }}</textarea>
+            @error('description') <span class="text-danger">{{ $message }}</span> @enderror
+        </div>
+
+        <button type="submit" class="btn btn-primary">Update Module</button>
+        <a href="{{ route('modules.my') }}" class="btn btn-secondary">Cancel</a>
     </form>
 @endsection

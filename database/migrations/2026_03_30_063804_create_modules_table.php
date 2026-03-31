@@ -14,12 +14,10 @@ return new class extends Migration
         Schema::create('modules', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->unsignedBigInteger('author_id')->default(1);
+            $table->text('description')->nullable();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade'); // Add this
             $table->boolean('is_active')->default(true);
             $table->timestamps();
-
-            // FK
-            $table->foreign('author_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

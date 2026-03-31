@@ -2,68 +2,77 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Module;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Module;
 
 class ModuleController extends Controller
 {
-    public function index()
+    // Show user's own modules
+    public function myModules()
     {
-        $modules = Module::all();
-        return view('modules.index', compact('modules'));
+        $modules = auth()->user()->modules;
+        return view('modules.my', compact('modules'));
     }
 
-    public function create()
-    {
+    // Create form
+    public function create(){
         return view('modules.create');
     }
-        public function store(Request $request)
+
+    // Store module (attach to authenticated user)
+    public function store(Request $request)
     {
-        $data = $request->validate([
+        $validated = $request->validate([
             'title' => 'required|string|max:255',
-            'is_active' => 'boolean',
+            'description' => 'nullable|string',
         ]);
 
-//        $data['author_id'] = Auth::id(); // <- автоматически текущий пользователь
+        auth()->user()->modules()->create($validated);
 
-        \App\Models\Module::create($data);
-
-        return redirect()->route('modules.index');
+        return redirect()->route('modules.my')->with('success', 'Module created!');
     }
 
+    // Edit form (check ownership)
+    public function edit(Module $module)
+    {
+        $this->authorize('update', $module); // Policy check
+        return view('modules.edit', compact('module'));
+    }
+
+    // Update module (check ownership)
+    public function update(Request $request, Module $module)
+    {
+        $this->authorize('update', $module);
+
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'nullable|string',
+        ]);
+
+        $module->update($validated);
+
+        return redirect()->route('modules.my')->with('success', 'Module updated!');
+    }
+
+    // Delete module (check ownership)
+    public function destroy(Module $module)
+    {
+//        $this->authorize('delete', $module);
+        $module->delete();
+
+        return redirect()->route('modules.my')->with('success', 'Module deleted!');
+    }
+
+    // Show module (public view)
     public function show(Module $module)
     {
         return view('modules.show', compact('module'));
     }
 
-    public function edit(Module $module)
+    // List all modules (public)
+    public function index()
     {
-        return view('modules.edit', compact('module'));
+        $modules = Module::all();
+        return view('modules.index', compact('modules'));
     }
-
-    public function update(Request $request, Module $module)
-    {
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'is_active' => 'boolean',
-        ]);
-
-        $module->update($request->all());
-        return redirect()->route('modules.index')->with('success', 'Module updated successfully!');
-    }
-
-    public function destroy(Module $module)
-    {
-        $module->delete();
-        return redirect()->route('modules.index')->with('success', 'Module deleted successfully!');
-    }
-
-    public function myModules()
-    {
-        $modules = auth()->user()->modules()->with('lessons')->get();
-
-        return view('modules.my', compact('modules'));
-    }
-
 }

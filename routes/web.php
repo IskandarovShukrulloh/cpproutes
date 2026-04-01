@@ -56,25 +56,45 @@ Route::middleware('guest')->group(function () {
 Route::middleware(['auth', AdminMiddleware::class])->group(function () {
     Route::view('/admin-panel', 'pages.admin')->name('admin-panel');
 
-    // Admin can manage all users
     Route::resource('users', UserController::class);
 
-    // Admin can manage all modules
     Route::resource('modules', ModuleController::class)->only(['index', 'show']);
+
+    Route::resource('lessons', LessonController::class)
+        ->only(['index', 'show'])
+        ->names([
+            'index' => 'admin.lessons.index',
+            'show' => 'admin.lessons.show',
+        ]);
 });
 
 // ============================================
-// LESSONS ROUTES
+// LESSONS ROUTES (USER)
 // ============================================
 Route::middleware('auth')->group(function () {
-    Route::get('/modules/{module}/lessons/create', [LessonController::class, 'create'])->name('lessons.create');
-    Route::post('/modules/{module}/lessons', [LessonController::class, 'store'])->name('lessons.store');
 
+    Route::get('/modules/{module}/lessons', [LessonController::class, 'index'])
+        ->name('lessons.index');
 
-    Route::get('/lessons/{lesson}/edit', [LessonController::class, 'edit'])->name('lessons.edit');
-    Route::put('/lessons/{lesson}', [LessonController::class, 'update'])->name('lessons.update');
-    Route::delete('/lessons/{lesson}', [LessonController::class, 'destroy'])->name('lessons.destroy');
+    Route::get('/modules/{module}/lessons/create', [LessonController::class, 'create'])
+        ->name('lessons.create');
+
+    Route::post('/modules/{module}/lessons', [LessonController::class, 'store'])
+        ->name('lessons.store');
+
+    Route::get('/lessons/{lesson}/edit', [LessonController::class, 'edit'])
+        ->name('lessons.edit');
+
+    Route::put('/lessons/{lesson}', [LessonController::class, 'update'])
+        ->name('lessons.update');
+
+    Route::delete('/lessons/{lesson}', [LessonController::class, 'destroy'])
+        ->name('lessons.destroy');
+
+    Route::get('/lessons/{lesson}', [LessonController::class, 'show'])
+        ->name('lessons.show');
 });
+
 
 // ============================================
 // SETTINGS ROUTES

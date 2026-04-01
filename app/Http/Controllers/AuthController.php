@@ -6,7 +6,6 @@ use App\Models\User;
 use App\Enums\UserRole;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
 class AuthController extends Controller
 {
     public function showLogin()

@@ -5,7 +5,7 @@
 @section('content')
     <div class="container">
 
-        <h1 class="mb-4">Welcome to CppRoutes</h1>
+        <h1 class="mb-4">Добро пожаловать в CppRoutes</h1>
 
         {{-- List of modules --}}
         @if($modules->isEmpty())
@@ -19,7 +19,7 @@
             </span>
 
                         <small>
-                            Author:
+                            Автор:
                             @if($module->author)
                                 <a href="{{ route('profile.show', $module->author->id) }}">
                                     {{ $module->author->username }}

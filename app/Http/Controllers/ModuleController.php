@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Module;
-
+use App\Http\Policies\ModulePolicy;
 class ModuleController extends Controller
 {
     // Show user's own modules
@@ -57,7 +57,7 @@ class ModuleController extends Controller
     // Delete module (check ownership)
     public function destroy(Module $module)
     {
-//        $this->authorize('delete', $module);
+        // $this->authorize('delete', $module);
         $module->delete();
 
         return redirect()->route('modules.my')->with('success', 'Module deleted!');

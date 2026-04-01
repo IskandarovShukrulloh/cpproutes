@@ -1,54 +1,92 @@
 @extends('layouts.app')
+
 @section('title', 'My Modules')
+
 @section('content')
-    <div class="my-modules">
+    <div class="container">
+
         <div class="modules-header">
-            <h1>My Modules</h1>
+            <h1>Мои модули</h1>
             <a href="{{ route('modules.create') }}" class="btn btn-primary">
-                + Add Module
+                + Добавить Модуль
             </a>
         </div>
 
         @if($modules->isEmpty())
-            <div class="empty-state">
-                <p>You haven't created any modules yet.</p>
-                <a href="{{ route('modules.create') }}" class="btn btn-primary">Create Your First Module</a>
-            </div>
+            <p>You don't have any modules yet.</p>
+            <a href="{{ route('modules.create') }}" class="btn btn-primary">Create Module</a>
         @else
-            <div class="modules-list">
-                @foreach($modules as $module)
-                    <div class="module-card">
-                        <div class="module-header">
-                            <h3>{{ $module->title }}</h3>
-                            <div class="module-actions">
-                                <a href="{{ route('modules.edit', $module) }}" class="btn btn-sm btn-warning">Edit</a>
-                                <form action="{{ route('modules.destroy', $module) }}" method="POST" style="display:inline;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
-                                </form>
-                            </div>
-                        </div>
 
-                        @if($module->description)
-                            <p class="module-description">{{ $module->description }}</p>
+            @foreach($modules as $module)
+                <div class="card mb-4">
+
+                    {{-- HEADER --}}
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <strong>{{ $module->title }}</strong>
+
+                        <div>
+                            <a href="{{ route('modules.edit', $module->id) }}" class="btn btn-sm btn-warning">Edit</a>
+
+                            <form action="{{ route('modules.destroy', $module->id) }}" method="POST" class="d-inline">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn btn-sm btn-danger">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    {{-- BODY --}}
+                    <div class="card-body">
+
+                        <p>{{ $module->description }}</p>
+
+                        {{-- ADD LESSON --}}
+                        <a href="{{ route('lessons.create', $module->id) }}" class="btn btn-sm btn-primary mb-3">
+                            + Add Lesson
+                        </a>
+
+                        {{-- LESSONS --}}
+                        <h6>Lessons ({{ $module->lessons->count() }}):</h6>
+
+                        @if($module->lessons->isEmpty())
+                            <p class="text-muted">No lessons yet.</p>
+                        @else
+                            <ul class="list-group">
+
+                                @foreach($module->lessons as $lesson)
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+
+                                        {{-- TITLE --}}
+                                        <a href="{{ route('lessons.show', $lesson->id) }}">
+                                            {{ $lesson->title }}
+                                        </a>
+
+                                        {{-- ACTIONS --}}
+                                        <div>
+                                            <a href="{{ route('lessons.edit', $lesson->id) }}" class="btn btn-sm btn-outline-warning">
+                                                Edit
+                                            </a>
+
+                                            <form action="{{ route('lessons.destroy', $lesson->id) }}" method="POST" class="d-inline">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button class="btn btn-sm btn-outline-danger">
+                                                    Delete
+                                                </button>
+                                            </form>
+                                        </div>
+
+                                    </li>
+                                @endforeach
+
+                            </ul>
                         @endif
 
-                        {{--<div class="module-lessons">
-                            <h4>Lessons</h4>
-                            @if($module->lessons->isEmpty())
-                                <p class="no-lessons">No lessons yet. <a href="{{ route('lessons.create', $module) }}">Add one</a></p>
-                            @else
-                                <ul>
-                                    @foreach($module->lessons as $lesson)
-                                        <li>{{ $lesson->title }}</li>
-                                    @endforeach
-                                </ul>
-                            @endif
-                        </div> --}}
                     </div>
-                @endforeach
-            </div>
+                </div>
+            @endforeach
+
         @endif
+
     </div>
 @endsection

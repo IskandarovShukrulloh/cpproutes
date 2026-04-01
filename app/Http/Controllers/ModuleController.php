@@ -35,14 +35,14 @@ class ModuleController extends Controller
     // Edit form (check ownership)
     public function edit(Module $module)
     {
-        $this->authorize('update', $module); // Policy check
+      //  $this->authorize('update', $module); // Policy check
         return view('modules.edit', compact('module'));
     }
 
     // Update module (check ownership)
     public function update(Request $request, Module $module)
     {
-        $this->authorize('update', $module);
+        //$this->authorize('update', $module);
 
         $validated = $request->validate([
             'title' => 'required|string|max:255',

@@ -14,7 +14,10 @@
             @foreach($modules as $module)
                 <div class="card mb-3">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                        <span>{{ $module->title }}</span>
+            <span>
+                    {{ $module->title }}
+            </span>
+
                         <small>
                             Author:
                             @if($module->author)
@@ -26,14 +29,20 @@
                             @endif
                         </small>
                     </div>
+
                     <div class="card-body">
-                        <h6>Lessons:</h6>
-                        @if($module->lessons == null)
+                        <h6>Lessons ({{ $module->lessons->count() }}):</h6>
+
+                        @if($module->lessons->isEmpty())
                             <p class="text-muted">No lessons for this module yet.</p>
                         @else
                             <ul>
                                 @foreach($module->lessons as $lesson)
-                                    <li>{{ $lesson->title }}</li>
+                                    <li>
+                                        <a href="{{ route('lessons.show', $lesson->id) }}">
+                                            {{ $lesson->title }}
+                                        </a>
+                                    </li>
                                 @endforeach
                             </ul>
                         @endif

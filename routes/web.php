@@ -6,7 +6,8 @@ use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\AuthController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Controllers\HomeController;
-use App\Http\Policies\ModulePolicy;
+use App\Http\Controllers\LessonController;
+//use App\Http\Policies\ModulePolicy;
 
 // ============================================
 // AUTHENTICATED USER ROUTES
@@ -37,6 +38,7 @@ Route::get('/profile/{user}', [UserController::class, 'showProfile'])->name('pro
 // Public module viewing
 Route::get('/modules', [ModuleController::class, 'index'])->name('modules.index');
 Route::get('/modules/{module}', [ModuleController::class, 'show'])->name('modules.show');
+Route::get('/lessons/{lesson}', [LessonController::class, 'show'])->name('lessons.show');
 
 // ============================================
 // GUEST ONLY ROUTES (Login/Register)
@@ -59,6 +61,19 @@ Route::middleware(['auth', AdminMiddleware::class])->group(function () {
 
     // Admin can manage all modules
     Route::resource('modules', ModuleController::class)->only(['index', 'show']);
+});
+
+// ============================================
+// LESSONS ROUTES
+// ============================================
+Route::middleware('auth')->group(function () {
+    Route::get('/modules/{module}/lessons/create', [LessonController::class, 'create'])->name('lessons.create');
+    Route::post('/modules/{module}/lessons', [LessonController::class, 'store'])->name('lessons.store');
+
+
+    Route::get('/lessons/{lesson}/edit', [LessonController::class, 'edit'])->name('lessons.edit');
+    Route::put('/lessons/{lesson}', [LessonController::class, 'update'])->name('lessons.update');
+    Route::delete('/lessons/{lesson}', [LessonController::class, 'destroy'])->name('lessons.destroy');
 });
 
 // ============================================

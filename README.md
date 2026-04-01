@@ -37,13 +37,16 @@ composer install
 cp .env.example .env
 ```
 2. Set up your database connection:
-**DB_DATABASE=your_db
+3. DB_DATABASE=your_db
+```php
 DB_USERNAME=root
-DB_PASSWORD=**
-
-3. Generate application key:
-**php artisan key:generate**
-🗄 Database Setup
+DB_PASSWORD=
+```
+4. Generate application key:
+```bash
+php artisan key:generate
+```
+5. Database Setup
 ```bash
 php artisan migrate
 php artisan db:seed

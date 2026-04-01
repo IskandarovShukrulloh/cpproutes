@@ -106,13 +106,13 @@
 
         <a href="{{ route('modules.index') }}" class="card">
             <h2>Modules</h2>
-            <p>Check and manage all lesson modules here.</p>
+            <p>Check and manage all modules here.</p>
         </a>
 
-{{--        <a href="#" class="card">--}}
-{{--            <h2>Reports</h2>--}}
-{{--            <p>Generate reports and analytics for the platform.</p>--}}
-{{--        </a>--}}
+        <a href="{{ route('admin.lessons.index') }}" class="card">
+            <h2>Lessons</h2>
+            <p>Check and manage all lessons here.</p>
+        </a>
 
 {{--        <a href="#" class="card">--}}
 {{--            <h2>Settings</h2>--}}

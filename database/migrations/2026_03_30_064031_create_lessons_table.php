@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('title');
             $table->text('text')->nullable();
             $table->integer('order')->default(1);
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
 

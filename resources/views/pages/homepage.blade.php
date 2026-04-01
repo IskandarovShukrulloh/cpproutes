@@ -31,10 +31,10 @@
                     </div>
 
                     <div class="card-body">
-                        <h6>Lessons ({{ $module->lessons->count() }}):</h6>
+                        <h6>Уроки ({{ $module->lessons->count() }}):</h6>
 
                         @if($module->lessons->isEmpty())
-                            <p class="text-muted">No lessons for this module yet.</p>
+                            <p class="text-muted">Пока что автор не добавил уроков для этого модуля</p>
                         @else
                             <ul>
                                 @foreach($module->lessons as $lesson)

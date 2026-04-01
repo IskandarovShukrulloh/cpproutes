@@ -89,4 +89,16 @@ class LessonController extends Controller
 
         return back()->with('success', 'Lesson deleted!');
     }
+
+    public function index()
+    {
+        $lessons = \App\Models\Lesson::with('module')->orderBy('id')->get();
+
+        return view('lessons.index', compact('lessons'));
+    }
+    public function adminIndex()
+    {
+        $lessons = Lesson::with('module')->orderBy('module_id')->orderBy('order')->get();
+        return view('lessons.admin_index', compact('lessons'));
+    }
 }

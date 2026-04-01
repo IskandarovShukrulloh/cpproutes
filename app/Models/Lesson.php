@@ -3,18 +3,24 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
 class Lesson extends Model
 {
-    protected $table = 'lessons';
-    protected $fillable = ['title', 'is_active'];
-
+    protected $fillable = ['module_id', 'title', 'text', 'order'];
     protected $casts = [
         'is_active' => 'boolean'
     ];
+    public function module()
+    {
+        return $this->belongsTo(Module::class);
+    }
 
-    // FK
-    public function module(){
-        return $this->belongsTo(Module::class, 'module_id');
+    public function files()
+    {
+        return $this->hasMany(LessonFile::class);
+    }
+
+    public function videos()
+    {
+        return $this->hasMany(LessonVideo::class);
     }
 }

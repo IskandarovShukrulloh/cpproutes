@@ -33,14 +33,15 @@ composer install
 
 🔧 Configuration
 1. Copy the environment file:
-2. cp .env.example .env
-
-Set up your database connection:
+```bash
+cp .env.example .env
+```
+2. Set up your database connection:
 **DB_DATABASE=your_db
 DB_USERNAME=root
 DB_PASSWORD=**
 
-Generate application key:
+3. Generate application key:
 **php artisan key:generate**
 🗄 Database Setup
 ```bash

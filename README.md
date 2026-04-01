@@ -43,12 +43,16 @@ DB_PASSWORD=**
 Generate application key:
 **php artisan key:generate**
 🗄 Database Setup
-1. php artisan migrate
-2. php artisan db:seed
+```bash
+php artisan migrate
+php artisan db:seed
+```
 
 ▶️ Run the project
+```bash
 php artisan serve
-click: http://localhost:8000
+```
+click: **http://localhost:8000**
 
 📁 Project Structure
 app/

@@ -55,21 +55,16 @@ php artisan serve
 click: **http://localhost:8000**
 
 📁 Project Structure
-app/
- ├── Models
- ├── Http/Controllers
+app/Models
+app/Http/Controllers
 
-database/
- ├── migrations
- ├── seeders
+database/migrations
+database/seeders
 
-resources/
- ├── views (Blade templates)
+resources/views (Blade templates)
 
-routes/
- ├── web.php
-storage/
- ├── module_{}/lesson_{}/(files/videos) - files orvideos provided by lesson author 
+routes/web.php
+storage/module_{}/lesson_{}/(files/videos) - files orvideos provided by lesson author 
 
 🎯 Purpose of the Project
 This project was created to practice:

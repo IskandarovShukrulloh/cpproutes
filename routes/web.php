@@ -10,6 +10,12 @@ use App\Http\Controllers\LessonController;
 //use App\Http\Policies\ModulePolicy;
 
 // ============================================
+// PUBLIC ROUTES
+// ============================================
+Route::get('/', [HomeController::class, 'homepage'])->name('home');
+Route::get('/profile/{user}', [UserController::class, 'showProfile'])->name('profile.show');
+
+// ============================================
 // AUTHENTICATED USER ROUTES
 // ============================================
 Route::middleware('auth')->group(function () {
@@ -29,16 +35,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/modules/{module}', [ModuleController::class, 'destroy'])->name('modules.destroy');
 });
 
-// ============================================
-// PUBLIC ROUTES
-// ============================================
-Route::get('/', [HomeController::class, 'homepage'])->name('home');
-Route::get('/profile/{user}', [UserController::class, 'showProfile'])->name('profile.show');
 
-// Public module viewing
-Route::get('/modules', [ModuleController::class, 'index'])->name('modules.index');
-Route::get('/modules/{module}', [ModuleController::class, 'show'])->name('modules.show');
-Route::get('/lessons/{lesson}', [LessonController::class, 'show'])->name('lessons.show');
 
 // ============================================
 // GUEST ONLY ROUTES (Login/Register)
